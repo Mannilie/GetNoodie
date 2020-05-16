@@ -104,6 +104,7 @@ namespace GetNoodie
         }
         public void Scored(int value)
         {
+            UI.AddBonusText(value, transform.position);
             Game.Instance.AddScore(value);
         }
         public void GameOver()
