@@ -2,11 +2,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace GetNoodie
 {
+    [RequireComponent(typeof(SceneLoader))]
     public class Game : MonoBehaviour
     {
         #region Definition
@@ -63,9 +63,15 @@ namespace GetNoodie
         }
         public static float GlobalSpeed
         {
-            get => Instance.m_globalSpeed;
+            get
+            {
+                if (Instance == null)
+                    return 1;
+                return Instance.m_globalSpeed;
+            }
             set => Instance.m_globalSpeed = value;
         }
+
         public static float GlobalTimer
         {
             get => Instance.m_globalTimer;
@@ -85,12 +91,11 @@ namespace GetNoodie
         }
         private void Update()
         {
-            if (m_paused)
+            if (IsPaused)
                 return;
             WallSpacing = m_wallSpacing;
             GlobalTimer += Time.deltaTime;
             UI.UpdateTimerText(GlobalTimer);
-
             // Spawn Powerups
             m_powerupTimer += Time.deltaTime;
             var powerupRate = CurrentWave.powerupRate;
@@ -112,11 +117,11 @@ namespace GetNoodie
             IsPaused = true;
             GlobalSpeed = 0f;
             OnGameOver.Invoke();
+            StopAllCoroutines();
         }
         public void Restart()
         {
-            var scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.buildIndex);
+            SceneLoader.Instance.Restart();
         }
         private void WaveCompleted()
         {
