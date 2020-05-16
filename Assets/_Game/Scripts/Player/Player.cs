@@ -65,7 +65,7 @@ namespace GetNoodie
             if (powerup != null)
             {
                 var value = powerup.Collect();
-                Scored(value);
+                Scored(value, other.transform.position);
             }
             var obstacle = other.GetComponent<Obstacle>();
             if (obstacle != null)
@@ -102,9 +102,9 @@ namespace GetNoodie
             else
                 m_enabled = false;
         }
-        public void Scored(int value)
+        public void Scored(int value, Vector3 hitPosition)
         {
-            UI.AddBonusText(value, transform.position);
+            UI.AddBonusText(value, hitPosition);
             Game.Instance.AddScore(value);
         }
         public void GameOver()
