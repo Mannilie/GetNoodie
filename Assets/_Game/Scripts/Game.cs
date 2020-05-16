@@ -1,11 +1,25 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace GetNoodie
 {
     public class Game : MonoBehaviour
     {
+        #region Definition
+        [Serializable]
+        public class Wave
+        {
+            public int level = 1;
+            public int count = 10;
+            public Vector2 obstacleRate = new Vector2(0.5f, 1.5f);
+            public Vector2 powerupRate = new Vector2(0.5f, 1.5f);
+            public float globalSpeed = 1f;
+        }
+        #endregion
         #region Variables
         private static Game m_instance;
         [SerializeField] private bool m_paused = false;
@@ -16,8 +30,13 @@ namespace GetNoodie
         [SerializeField] private Transform m_leftWall = null;
         [SerializeField] private Transform m_rightWall = null;
         [SerializeField] private UnityEvent m_onGameOver = new UnityEvent();
+        [SerializeField] private Spawner m_obstacles;
+        [SerializeField] private Spawner m_powerups;
+        [SerializeField] private Wave m_currentWave = null;
+        [SerializeField] private float m_powerupTimer = 0f;
         #endregion
         #region Properties
+        public static Wave CurrentWave => Instance.m_currentWave;
         public static Game Instance
         {
             get
@@ -60,6 +79,10 @@ namespace GetNoodie
         public static UnityEvent OnGameOver => Instance.m_onGameOver;
         #endregion
         #region Methods
+        public void Start()
+        {
+            StartNextWave();
+        }
         private void Update()
         {
             if (m_paused)
@@ -67,6 +90,16 @@ namespace GetNoodie
             WallSpacing = m_wallSpacing;
             GlobalTimer += Time.deltaTime;
             UI.UpdateTimerText(GlobalTimer);
+
+            // Spawn Powerups
+            m_powerupTimer += Time.deltaTime;
+            var powerupRate = CurrentWave.powerupRate;
+            var rate = Random.Range(powerupRate.x, powerupRate.y);
+            if (m_powerupTimer >= rate)
+            {
+                m_powerups.Spawn();
+                m_powerupTimer = 0f;
+            }
         }
         public void AddScore(int value)
         {
@@ -84,6 +117,43 @@ namespace GetNoodie
         {
             var scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.buildIndex);
+        }
+        private void WaveCompleted()
+        {
+            StartNextWave();
+        }
+        public void StartNextWave()
+        {
+            var wave = CreateNextWave();
+            StartCoroutine(SpawnWave(wave));
+        }
+        private Wave CreateNextWave()
+        {
+            var nextWave = new Wave();
+            if (CurrentWave != null)
+            {
+                nextWave.level = CurrentWave.level + 1;
+                nextWave.count = CurrentWave.count + 2;
+                nextWave.obstacleRate = CurrentWave.obstacleRate + new Vector2(.1f, .1f);
+                nextWave.powerupRate = CurrentWave.powerupRate + new Vector2(.1f, .1f);
+                nextWave.globalSpeed = CurrentWave.globalSpeed + .05f;
+            }
+            GlobalSpeed = nextWave.globalSpeed;
+            m_currentWave = nextWave;
+            UI.UpdateWaveText(nextWave.level);
+            return nextWave;
+        }
+        private IEnumerator SpawnWave(Wave wave)
+        {
+            for (var i = 0; i < wave.count; i++)
+            {
+                m_obstacles.Spawn();
+                var obstacleRate = wave.obstacleRate;
+                var rate = Random.Range(obstacleRate.x, obstacleRate.y);
+                yield return new WaitForSeconds(1f / rate);
+            }
+            WaveCompleted();
+            yield return null;
         }
         #endregion
     }

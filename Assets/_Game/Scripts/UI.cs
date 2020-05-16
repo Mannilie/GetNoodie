@@ -11,6 +11,7 @@ namespace GetNoodie
         [SerializeField] private Transform m_bonusTextParent = null;
         [SerializeField] private Text m_scoreText = null;
         [SerializeField] private Text m_timerText = null;
+        [SerializeField] private Text m_waveText = null;
         #endregion
         #region Properties
         public static UI Instance
@@ -26,10 +27,13 @@ namespace GetNoodie
         #region Methods
         public static void AddBonusText(int bonus, Vector3 worldPosition)
         {
+            var cam = Camera.main;
+            if (cam == null)
+                return;
             var prefab = Instance.m_bonusTextPrefab;
             var parent = Instance.m_bonusTextParent;
             var instance = Instantiate(prefab, parent);
-            instance.transform.position = Camera.main.WorldToScreenPoint(worldPosition);
+            instance.transform.position = cam.WorldToScreenPoint(worldPosition);
             var bonusText = instance.GetComponent<Text>();
             bonusText.text = $"{bonus}";
         }
@@ -42,6 +46,10 @@ namespace GetNoodie
             var minutes = Mathf.Floor(timer / 60).ToString("00");
             var seconds = Mathf.Floor(timer % 60).ToString("00");
             Instance.m_timerText.text = $"{minutes}:{seconds}";
+        }
+        public static void UpdateWaveText(int wave)
+        {
+            Instance.m_waveText.text = $"{wave}";
         }
         #endregion
     }
