@@ -54,7 +54,7 @@ namespace GetNoodie
         }
         private void Update()
         {
-            if (GameManager.Instance.Paused)
+            if (Game.IsPaused)
                 return;
             Jump();
             Move();
@@ -89,7 +89,7 @@ namespace GetNoodie
             var current = Position;
             var maxDelta = MovementSpeed * Time.deltaTime;
             current.x = Mathf.MoveTowards(current.x, target.x, maxDelta);
-            var wallSpacing = GameManager.Instance.WallSpacing;
+            var wallSpacing = Game.Instance.WallSpacing;
             var time = Mathf.InverseLerp(-wallSpacing, wallSpacing, current.x);
             current.y = StartPosition.y + JumpCurve.Evaluate(time) * JumpHeight;
             Position = current;
@@ -100,12 +100,12 @@ namespace GetNoodie
         }
         public void Scored(int value)
         {
-            GameManager.Instance.AddScore(value);
+            Game.Instance.AddScore(value);
         }
         public void GameOver()
         {
             m_spriteRenderer.sprite = m_sprites[1];
-            GameManager.Instance.GameOver();
+            Game.Instance.GameOver();
         }
         #endregion
     }

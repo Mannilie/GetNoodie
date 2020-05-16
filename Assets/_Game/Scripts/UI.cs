@@ -3,34 +3,34 @@ using UnityEngine.UI;
 
 namespace GetNoodie
 {
-    public class UIManager : MonoBehaviour
+    public class UI : MonoBehaviour
     {
         #region Variables
-        private static UIManager m_instance;
+        private static UI m_instance;
         [SerializeField] private Text m_scoreText;
         [SerializeField] private Text m_timerText;
         #endregion
         #region Properties
-        public static UIManager Instance
+        public static UI Instance
         {
             get
             {
                 if (m_instance == null)
-                    m_instance = FindObjectOfType<UIManager>();
+                    m_instance = FindObjectOfType<UI>();
                 return m_instance;
             }
         }
         #endregion
         #region Methods
-        public void UpdateScoreText(int score)
+        public static void UpdateScoreText(int score)
         {
-            m_scoreText.text = $"Score: {score}";
+            Instance.m_scoreText.text = $"Score: {score}";
         }
-        public void UpdateTimerText(float timer)
+        public static void UpdateTimerText(float timer)
         {
             var minutes = Mathf.Floor(timer / 60).ToString("00");
             var seconds = Mathf.Floor(timer % 60).ToString("00");
-            m_timerText.text = $"Timer: {minutes}:{seconds}";
+            Instance.m_timerText.text = $"Timer: {minutes}:{seconds}";
         }
         #endregion
     }

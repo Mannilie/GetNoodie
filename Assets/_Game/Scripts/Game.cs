@@ -1,13 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace GetNoodie
 {
-    public class GameManager : MonoBehaviour
+    public class Game : MonoBehaviour
     {
         #region Variables
-        private static GameManager m_instance;
+        private static Game m_instance;
         [SerializeField] private bool m_paused = false;
         [SerializeField] private float m_globalSpeed = 1f;
         [SerializeField] private float m_globalTimer = 0f;
@@ -15,22 +15,22 @@ namespace GetNoodie
         [SerializeField] private float m_wallSpacing = 2f;
         [SerializeField] private Transform m_leftWall;
         [SerializeField] private Transform m_rightWall;
+        [SerializeField] private UnityEvent m_onGameOver;
         #endregion
         #region Properties
-        public static GameManager Instance
+        public static Game Instance
         {
             get
             {
                 if (m_instance == null)
-                    m_instance = FindObjectOfType<GameManager>();
+                    m_instance = FindObjectOfType<Game>();
                 return m_instance;
             }
         }
-        public UIManager UIManager => UIManager.Instance;
-        public bool Paused
+        public static bool IsPaused
         {
-            get => m_paused;
-            set => m_paused = value;
+            get => Instance.m_paused;
+            set => Instance.m_paused = value;
         }
         public float WallSpacing
         {
@@ -57,6 +57,7 @@ namespace GetNoodie
             get => m_totalScore;
             set => m_totalScore = value;
         }
+        public UnityEvent OnGameOver => m_onGameOver;
         #endregion
         #region Methods
         private void Update()
@@ -65,18 +66,19 @@ namespace GetNoodie
                 return;
             WallSpacing = m_wallSpacing;
             GlobalTimer += Time.deltaTime;
-            UIManager.UpdateTimerText(GlobalTimer);
+            UI.UpdateTimerText(GlobalTimer);
         }
         public void AddScore(int value)
         {
             // Add the score to total
             TotalScore += value;
-            UIManager.UpdateScoreText(TotalScore);
+            UI.UpdateScoreText(TotalScore);
         }
         public void GameOver()
         {
-            Paused = true;
+            IsPaused = true;
             GlobalSpeed = 0f;
+            OnGameOver.Invoke();
         }
         public void Restart()
         {

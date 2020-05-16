@@ -10,7 +10,7 @@ namespace GetNoodie
         private void Update()
         {
             var position = transform.position;
-            var speed = scrollSpeed * GameManager.Instance.GlobalSpeed;
+            var speed = scrollSpeed * Game.Instance.GlobalSpeed;
             position.y += speed * Time.deltaTime;
             transform.position = position;
         }

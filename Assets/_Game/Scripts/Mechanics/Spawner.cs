@@ -14,6 +14,8 @@ namespace GetNoodie
         #region Methods
         public void Update()
         {
+            if (Game.IsPaused)
+                return;
             m_spawnTimer += Time.deltaTime;
             if (m_spawnTimer >= m_spawnRate)
             {
