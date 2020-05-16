@@ -51,17 +51,17 @@ namespace GetNoodie
         }
         public static void UpdateScoreText(int score)
         {
-            Instance.m_scoreText.text = $"{Instance.m_scorePrefix}{score}";
+            Instance.m_scoreText.text = $"<color=white>{Instance.m_scorePrefix}</color>{score}";
         }
         public static void UpdateTimerText(float timer)
         {
             var minutes = Mathf.Floor(timer / 60).ToString("00");
             var seconds = Mathf.Floor(timer % 60).ToString("00");
-            Instance.m_timerText.text = $"{Instance.m_timerPrefix}{minutes}:{seconds}";
+            Instance.m_timerText.text = $"<color=white>{Instance.m_timerPrefix}</color>{minutes}:{seconds}";
         }
         public static void UpdateWaveText(int wave)
         {
-            Instance.m_waveText.text = $"{Instance.m_wavePrefix}{wave}";
+            Instance.m_waveText.text = $"<color=white>{Instance.m_wavePrefix}</color>{wave}";
         }
         #endregion
     }
