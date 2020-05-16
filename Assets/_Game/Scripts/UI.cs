@@ -34,7 +34,7 @@ namespace GetNoodie
             var parent = Instance.m_bonusTextParent;
             var instance = Instantiate(prefab, parent);
             instance.transform.position = cam.WorldToScreenPoint(worldPosition);
-            var bonusText = instance.GetComponent<Text>();
+            var bonusText = instance.GetComponentInChildren<Text>();
             bonusText.text = $"{bonus}";
         }
         public static void UpdateScoreText(int score)
