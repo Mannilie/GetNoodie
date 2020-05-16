@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-us">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>GetNoodie</title>
+    <title>%UNITY_WEB_NAME%</title>
     <style>
         @font-face {
             font-family: Archivo;
@@ -119,9 +119,9 @@
     </div>
 </body>
 
-<script src="Build/UnityLoader.js"></script>
+<script src="%UNITY_WEBGL_LOADER_URL%"></script>
 <script>
-    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/docs.json", { onProgress: UnityProgress });
+    var gameInstance = UnityLoader.instantiate("gameContainer", "%UNITY_WEBGL_BUILD_URL%", { onProgress: UnityProgress });
     function UnityProgress(gameInstance, progress) {
         if (!gameInstance.Module) {
             return;

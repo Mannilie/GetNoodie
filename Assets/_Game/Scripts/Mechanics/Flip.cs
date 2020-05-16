@@ -6,9 +6,15 @@ namespace GetNoodie
     public class Flip : MonoBehaviour
     {
         #region Variables
-        [SerializeField] private SpriteRenderer m_spriteRenderer;
+        [SerializeField] private bool m_inverse = false;
+        [HideInInspector] [SerializeField] private SpriteRenderer m_spriteRenderer;
         #endregion
         #region Properties
+        public bool Inverse
+        {
+            get => m_inverse;
+            set => m_inverse = value;
+        }
         public SpriteRenderer SpriteRenderer => m_spriteRenderer;
         #endregion
         #region Methods
@@ -20,7 +26,8 @@ namespace GetNoodie
         // Update is called once per frame
         private void Update()
         {
-            SpriteRenderer.flipX = transform.position.x < 0;
+            float x = transform.position.x;
+            SpriteRenderer.flipX = Inverse ? x > 0 : x < 0;
         }
         #endregion
     }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 475051312951831366}
   - component: {fileID: 2367902549635344733}
   - component: {fileID: -197699158907779667}
+  - component: {fileID: -388828674609131363}
   m_Layer: 0
   m_Name: Scissors
   m_TagString: Untagged
@@ -139,3 +140,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 1
+--- !u!114 &-388828674609131363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475051312951831355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7298fefaebbb34aba214990f9e6e3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inverse: 1
+  m_spriteRenderer: {fileID: 0}

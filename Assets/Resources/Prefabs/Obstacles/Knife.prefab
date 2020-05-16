@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1779568998535471557}
   - component: {fileID: 4722000734486948995}
   - component: {fileID: 5431422596380617366}
+  - component: {fileID: -1321033830873626703}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
@@ -139,3 +140,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 1
+--- !u!114 &-1321033830873626703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779568998535471558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7298fefaebbb34aba214990f9e6e3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inverse: 1
+  m_spriteRenderer: {fileID: 0}
