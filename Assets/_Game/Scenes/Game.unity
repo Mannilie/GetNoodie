@@ -1723,7 +1723,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'POINTS GAINED: '
+  m_Text: 'NUTRICION POINTS GAINED: '
 --- !u!222 &1355374647
 CanvasRenderer:
   m_ObjectHideFlags: 0
