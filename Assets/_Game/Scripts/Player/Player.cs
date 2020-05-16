@@ -78,7 +78,11 @@ namespace GetNoodie
             if (!m_enabled)
                 return;
             // Jump key is pressed
-            if (Input.GetKeyDown(JumpKey))
+            bool isMouseButton = Input.GetMouseButtonDown(0);
+            bool isPressingSpace = Input.GetKeyDown(JumpKey);
+            bool isTouchingScreen = Input.touchCount > 0;
+            bool isJumping = isMouseButton || isPressingSpace || isTouchingScreen;
+            if (isJumping)
             {
                 CurrentWallIndex++;
             }
@@ -89,7 +93,7 @@ namespace GetNoodie
             var current = Position;
             var maxDelta = MovementSpeed * Time.deltaTime;
             current.x = Mathf.MoveTowards(current.x, target.x, maxDelta);
-            var wallSpacing = Game.Instance.WallSpacing;
+            var wallSpacing = Game.WallSpacing;
             var time = Mathf.InverseLerp(-wallSpacing, wallSpacing, current.x);
             current.y = StartPosition.y + JumpCurve.Evaluate(time) * JumpHeight;
             Position = current;

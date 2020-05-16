@@ -3057,14 +3057,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 273420223}
     m_Modifications:
-    - target: {fileID: 353464482, guid: 13a196f61f9fe14458d053331a9c55c0, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 353464482, guid: 13a196f61f9fe14458d053331a9c55c0, type: 3}
-      propertyPath: m_Offset.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 957398212054092314, guid: 13a196f61f9fe14458d053331a9c55c0,
         type: 3}
       propertyPath: m_wallPoints.Array.data[0]
@@ -3075,31 +3067,6 @@ PrefabInstance:
       propertyPath: m_wallPoints.Array.data[1]
       value: 
       objectReference: {fileID: 1471131567}
-    - target: {fileID: 957398212054092314, guid: 13a196f61f9fe14458d053331a9c55c0,
-        type: 3}
-      propertyPath: m_jumpCurve.m_Curve.Array.data[0].inSlope
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 957398212054092314, guid: 13a196f61f9fe14458d053331a9c55c0,
-        type: 3}
-      propertyPath: m_jumpCurve.m_Curve.Array.data[0].outSlope
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 957398212054092314, guid: 13a196f61f9fe14458d053331a9c55c0,
-        type: 3}
-      propertyPath: m_jumpCurve.m_Curve.Array.data[1].value
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 957398212054092314, guid: 13a196f61f9fe14458d053331a9c55c0,
-        type: 3}
-      propertyPath: m_jumpCurve.m_Curve.Array.data[2].inSlope
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 957398212054092314, guid: 13a196f61f9fe14458d053331a9c55c0,
-        type: 3}
-      propertyPath: m_jumpCurve.m_Curve.Array.data[2].outSlope
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 957398212054092317, guid: 13a196f61f9fe14458d053331a9c55c0,
         type: 3}
       propertyPath: m_LocalPosition.x

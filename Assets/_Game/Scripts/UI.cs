@@ -7,8 +7,8 @@ namespace GetNoodie
     {
         #region Variables
         private static UI m_instance;
-        [SerializeField] private Text m_scoreText;
-        [SerializeField] private Text m_timerText;
+        [SerializeField] private Text m_scoreText = null;
+        [SerializeField] private Text m_timerText = null;
         #endregion
         #region Properties
         public static UI Instance

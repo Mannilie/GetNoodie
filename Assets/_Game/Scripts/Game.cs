@@ -13,9 +13,9 @@ namespace GetNoodie
         [SerializeField] private float m_globalTimer = 0f;
         [SerializeField] private int m_totalScore = 0;
         [SerializeField] private float m_wallSpacing = 2f;
-        [SerializeField] private Transform m_leftWall;
-        [SerializeField] private Transform m_rightWall;
-        [SerializeField] private UnityEvent m_onGameOver;
+        [SerializeField] private Transform m_leftWall = null;
+        [SerializeField] private Transform m_rightWall = null;
+        [SerializeField] private UnityEvent m_onGameOver = new UnityEvent();
         #endregion
         #region Properties
         public static Game Instance
@@ -32,32 +32,32 @@ namespace GetNoodie
             get => Instance.m_paused;
             set => Instance.m_paused = value;
         }
-        public float WallSpacing
+        public static float WallSpacing
         {
-            get => m_wallSpacing;
+            get => Instance.m_wallSpacing;
             set
             {
-                m_leftWall.position = new Vector3(-value, 0f);
-                m_rightWall.position = new Vector3(value, 0f);
-                m_wallSpacing = value;
+                Instance.m_leftWall.position = new Vector3(-value, 0f);
+                Instance.m_rightWall.position = new Vector3(value, 0f);
+                Instance.m_wallSpacing = value;
             }
         }
-        public float GlobalSpeed
+        public static float GlobalSpeed
         {
-            get => m_globalSpeed;
-            set => m_globalSpeed = value;
+            get => Instance.m_globalSpeed;
+            set => Instance.m_globalSpeed = value;
         }
-        public float GlobalTimer
+        public static float GlobalTimer
         {
-            get => m_globalTimer;
-            set => m_globalTimer = value;
+            get => Instance.m_globalTimer;
+            set => Instance.m_globalTimer = value;
         }
-        public int TotalScore
+        public static int TotalScore
         {
-            get => m_totalScore;
-            set => m_totalScore = value;
+            get => Instance.m_totalScore;
+            set => Instance.m_totalScore = value;
         }
-        public UnityEvent OnGameOver => m_onGameOver;
+        public static UnityEvent OnGameOver => Instance.m_onGameOver;
         #endregion
         #region Methods
         private void Update()
