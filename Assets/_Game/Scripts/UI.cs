@@ -12,6 +12,9 @@ namespace GetNoodie
         [SerializeField] private Text m_scoreText = null;
         [SerializeField] private Text m_timerText = null;
         [SerializeField] private Text m_waveText = null;
+        private string m_scorePrefix;
+        private string m_timerPrefix; 
+        private string m_wavePrefix;
         #endregion
         #region Properties
         public static UI Instance
@@ -25,6 +28,15 @@ namespace GetNoodie
         }
         #endregion
         #region Methods
+        private void Awake()
+        {
+            m_scorePrefix = m_scoreText.text;
+            m_timerPrefix = m_timerText.text;
+            m_wavePrefix = m_waveText.text;
+            UpdateScoreText(0);
+            UpdateWaveText(0);
+            UpdateTimerText(0);
+        }
         public static void AddBonusText(int bonus, Vector3 worldPosition)
         {
             var cam = Camera.main;
@@ -39,17 +51,17 @@ namespace GetNoodie
         }
         public static void UpdateScoreText(int score)
         {
-            Instance.m_scoreText.text = $"{score}";
+            Instance.m_scoreText.text = $"{Instance.m_scorePrefix}{score}";
         }
         public static void UpdateTimerText(float timer)
         {
             var minutes = Mathf.Floor(timer / 60).ToString("00");
             var seconds = Mathf.Floor(timer % 60).ToString("00");
-            Instance.m_timerText.text = $"{minutes}:{seconds}";
+            Instance.m_timerText.text = $"{Instance.m_timerPrefix}{minutes}:{seconds}";
         }
         public static void UpdateWaveText(int wave)
         {
-            Instance.m_waveText.text = $"{wave}";
+            Instance.m_waveText.text = $"{Instance.m_wavePrefix}{wave}";
         }
         #endregion
     }

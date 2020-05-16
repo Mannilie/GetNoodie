@@ -15,8 +15,8 @@ namespace GetNoodie
         {
             public int level = 1;
             public int count = 10;
-            public Vector2 obstacleRate = new Vector2(0.5f, 1.5f);
-            public Vector2 powerupRate = new Vector2(0.5f, 1.5f);
+            public Vector2 obstacleRate = new Vector2(0.1f, 0.3f);
+            public Vector2 powerupRate = new Vector2(0.1f, 0.3f);
             public float globalSpeed = 1f;
         }
         #endregion
@@ -100,7 +100,7 @@ namespace GetNoodie
             m_powerupTimer += Time.deltaTime;
             var powerupRate = CurrentWave.powerupRate;
             var rate = Random.Range(powerupRate.x, powerupRate.y);
-            if (m_powerupTimer >= rate)
+            if (m_powerupTimer >= 1f / rate)
             {
                 m_powerups.Spawn();
                 m_powerupTimer = 0f;
