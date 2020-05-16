@@ -6,7 +6,7 @@ namespace GetNoodie
 {
     public class PostBuildActions
     {
-        [PostProcessBuild]
+        [PostProcessBuild(1)]
         public static void OnPostProcessBuild(BuildTarget target, string targetPath)
         {
             var path = Path.Combine(targetPath, "Build/UnityLoader.js");
