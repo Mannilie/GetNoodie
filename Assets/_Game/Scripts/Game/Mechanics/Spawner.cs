@@ -8,25 +8,38 @@ namespace GetNoodie
     public class Spawner : MonoBehaviour
     {
         #region Variables
-        [SerializeField] private List<GameObject> m_prefabs = new List<GameObject>();
+        [SerializeField] private List<Prototype> m_prototypes = new List<Prototype>();
         [SerializeField] private List<Transform> m_spawnPoints = new List<Transform>();
         #endregion
+        #region Properties
+        public List<Prototype> Prototypes => m_prototypes;
+        public List<Transform> SpawnPoints => m_spawnPoints;
+        #endregion
         #region Methods
-        public void Spawn()
+        public GameObject Spawn()
         {
-            var prefab = GetRandomPrefab();
+            var prototype = GetRandomPrototype();
+            var prefab = prototype.Prefab;
+            var euler = prototype.Euler;
+            var position = prototype.Position;
+            var scale = prototype.Scale;
+            var rotation = Quaternion.Euler(euler);
             var point = GetRandomPoint();
-            Instantiate(prefab, point.position, point.rotation, transform);
+            GameObject instance = Instantiate(prefab, transform);
+            instance.transform.position = point.position + position;
+            instance.transform.rotation *= rotation;
+            instance.transform.localScale = scale;
+            return instance;
         }
-        public GameObject GetRandomPrefab()
+        public Prototype GetRandomPrototype()
         {
-            var randomIndex = Random.Range(0, m_prefabs.Count);
-            return m_prefabs[randomIndex];
+            var randomIndex = Random.Range(0, Prototypes.Count);
+            return Prototypes[randomIndex];
         }
         public Transform GetRandomPoint()
         {
-            var randomIndex = Random.Range(0, m_spawnPoints.Count);
-            return m_spawnPoints[randomIndex];
+            var randomIndex = Random.Range(0, SpawnPoints.Count);
+            return SpawnPoints[randomIndex];
         }
         #endregion
     }

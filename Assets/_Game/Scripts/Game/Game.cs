@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -82,6 +83,8 @@ namespace GetNoodie
             get => Instance.m_totalScore;
             set => Instance.m_totalScore = value;
         }
+        public static Spawner Powerups => Instance.m_powerups;
+        public static Spawner Obstacles => Instance.m_obstacles;
         public static UnityEvent OnGameOver => Instance.m_onGameOver;
         #endregion
         #region Methods
@@ -144,6 +147,15 @@ namespace GetNoodie
                 nextWave.globalSpeed = CurrentWave.globalSpeed + .05f;
             }
             GlobalSpeed = nextWave.globalSpeed;
+            if (nextWave.level == 4)
+            {
+                var knifeProto = Obstacles.Prototypes.First();
+                Powerups.Prototypes.Add(new Prototype
+                {
+                    Prefab = knifeProto.Prefab,
+                    Euler = new Vector3(0f, 0f, -90f)
+                });
+            }
             m_currentWave = nextWave;
             UI.UpdateWaveText(nextWave.level);
             return nextWave;
